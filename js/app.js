@@ -20,3 +20,41 @@ document.getElementById("generate-pin").addEventListener("click", function () {
   const displayPinField = document.getElementById("display-pin");
   displayPinField.value = pin;
 });
+
+document.getElementById("calculator").addEventListener("click", function () {
+  const number = event.target.innerText;
+  const typedNumberField = document.getElementById("typed-numbers");
+  const previousTypedNumber = typedNumberField.value;
+
+  if (isNaN(number)) {
+    if (number === "C") {
+      typedNumberField.value = "";
+    } else if (number === "<") {
+      const digits = previousTypedNumber.split("");
+      digits.pop();
+      const remainingDigits = digits.join("");
+      typedNumberField.value = remainingDigits;
+    }
+  } else {
+    const newTypedNumber = previousTypedNumber + number;
+    typedNumberField.value = newTypedNumber;
+  }
+});
+
+document.getElementById("veryfy-pin").addEventListener("click", function () {
+  const displayPinField = document.getElementById("display-pin");
+  const currentPin = displayPinField.value;
+
+  const typedNumberField = document.getElementById("typed-numbers");
+  const typedNumber = typedNumberField.value;
+
+  const pinSuccessMessage = document.getElementById("pin-success");
+  const pinFailedMessage = document.getElementById("pin-failed");
+  if (typedNumber === currentPin) {
+    pinSuccessMessage.style.display = "block";
+    pinFailedMessage.style.display = "none";
+  } else {
+    pinFailedMessage.style.display = "block";
+    pinSuccessMessage.style.display = "none";
+  }
+});
